@@ -1,0 +1,12 @@
+/*etiquetas <-- orden alfabético
+identificadores
+clases
+pseudoelementos*/
+body 
+{
+	/*atributos:valor;*/
+	background: rgb(255,255,255); /*fondo backgroung: red*/
+	color: #000000; /*letra color: pink*/ 
+	margin: 0 auto; /*margen externo*/
+	max-width: 1024px; /*ancho máximo*/
+}
