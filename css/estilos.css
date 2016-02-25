@@ -10,3 +10,32 @@ body
 	margin: 0 auto; /*margen externo*/
 	max-width: 1024px; /*ancho máximo*/
 }
+body header
+{
+	background: pink; /*fondo*/
+	border: 1px solid black; /*borde normal*/
+	border-radius: 5px; /*bordes redondeados (esquinas)*/
+	color: white; /*letra*/
+}
+
+header h1
+{
+	text-align: center;
+}
+
+header nav ul li
+{
+	/*border: 1px solid yellow;*/
+	background: white;
+	border-radius: 5px;
+	color: black;
+	display: inline-block; /*rope caja*/
+	margin: 0px 50px;
+	padding: 10px;
+}
+
+header nav ul li:hover
+{
+	background: black;
+	color: white;
+}
