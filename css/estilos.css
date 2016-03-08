@@ -12,6 +12,7 @@ body
 }
 body header
 {
+	font-family: 'Oswald', sans-serif;
 	background: pink; /*fondo*/
 	border: 1px solid black; /*borde normal*/
 	border-radius: 5px; /*bordes redondeados (esquinas)*/
@@ -34,6 +35,7 @@ header img
 
 header nav ul li
 {
+	font-family: 'Open Sans Condensed', sans-serif;
 	/*border: 1px solid yellow;*/
 	background: white;
 	border-radius: 5px;
@@ -58,6 +60,7 @@ header nav ul li:hover
 
 #seccion1 article
 {
+	font-family: 'Varela Round', sans-serif;
 	border: 10px solid black;
 	display: inline-block; /*rompe caja*/
 	vertical-align: top; /*dice que se puede alinear verticalmente y hacia arriba*/
