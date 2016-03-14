@@ -5,6 +5,26 @@ body
 	margin: 0 auto;
 	max-width: 1024px;
 }
+
+form
+{
+	float: right;
+	margin-right: 20px;
+	margin-top: -40px;
+}
+
+form input
+{
+	border-radius: 5px;
+}
+
+form input[type="button"]
+{
+	background: green;
+	color: white;
+}
+
+
 header
 {
 	background: #B3D8EB
@@ -14,7 +34,9 @@ header nav
 {
 	background: #0E6CB0;
 	border-radius: 5px;
+	margin: 0 auto;
 	padding: 2px 0px 2px 0px;
+	width: 99%;
 }
 
 header nav ul li
@@ -28,4 +50,17 @@ header nav ul li
 #logo /*id*/
 {
 	margin-top: -250px;
+}
+
+#seccion01 article
+{
+	text-align: center;
+
+}
+
+#seccion01 article img
+{
+	border: 5px solid rgba(150, 150, 150, 0.5);
+	margin-top: 15px;
+	width: 98%
 }
