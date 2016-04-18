@@ -35,3 +35,11 @@ function operadores(ope)
 {
 	operador = ope;
 }
+
+function borrar()
+{
+	operador="";
+	document.calculadora.operando1.value=0;
+	document.calculadora.operando2.value=0;
+	document.calculadora.resultado.value=0;
+}
