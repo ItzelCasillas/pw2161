@@ -1,0 +1,38 @@
+body 
+{
+	background: lightblue;
+	font-size: 16px;
+	margin: 0 auto;
+	max-width: 1024px;
+}
+
+h2
+{
+    font-family: 'Raleway', sans-serif;
+    font-size: 30px;
+}
+
+article
+{
+	background: gray;
+	border-radius: 10px;
+    font-family: 'Raleway', sans-serif;
+}
+
+
+img 
+{
+	border-radius: 65px;
+	
+}
+
+button
+{
+	background: lightgrey;
+	border-radius: 7px;
+}
+
+.igual
+{
+	
+}
