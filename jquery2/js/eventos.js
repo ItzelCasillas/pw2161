@@ -18,15 +18,26 @@ var iniciaApp = function()
 			$("#txtClave").focus();
 		}
 		//2. verificar usuario y contraseña
-		if(usuario=="pw" && clave=="1234")
-		{
-			//alert("Bienvenido"+usuario);
-			//dar entrada al usuario
-			$("#datosUsuario").hide(); //escondemos
-			$("nav").show("slow"); //mostramos
-		}
-		else
-			alert("Usuario y/o contraseña incorrecta(s)");
+		var parametros = "accion=ValidarEntrada"+
+		                 "&usuario="+usuario+
+		                 "&clave="+clave+
+		                 "&id="+Math.random(); //para que ajax no utilice el cache
+		$.ajax({
+			beforeSend:function(){
+				console.log("Validar al ususario");
+			},
+			cache: false,
+			type: "POST",
+			dataType: "json",
+			url:"php/funciones.php",
+			data:parametros,
+			success: function(response){
+
+			},
+			error: function(xhr,ajaxOptions,thrownError){
+				console.log("Algo salió mal");
+			}
+		});
 		console.log("Se disparó el submit");
 	}
 	$("#frmValidaEntrada").on("submit",ValidarEntrada);
