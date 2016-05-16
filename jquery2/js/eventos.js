@@ -18,7 +18,7 @@ var iniciaApp = function()
 			$("#txtClave").focus();
 		}
 		//2. verificar usuario y contraseña
-		var parametros = "accion=ValidarEntrada"+
+		var parametros = "accion=validarEntrada"+
 		                 "&usuario="+usuario+
 		                 "&clave="+clave+
 		                 "&id="+Math.random(); //para que ajax no utilice el cache
@@ -32,6 +32,15 @@ var iniciaApp = function()
 			url:"php/funciones.php",
 			data:parametros,
 			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#datosUsuario").hide();
+					$("nav").show("slow");
+				}
+				else
+				{
+					alert("Usuario/contraseña incorrecto(s)");
+				}
 
 			},
 			error: function(xhr,ajaxOptions,thrownError){
