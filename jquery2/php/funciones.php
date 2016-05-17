@@ -36,7 +36,7 @@ function ValidarEntrada()
 
 	//conecto al servidor de BD
 	//servidor, usuario y clave
-	$conexion = mysql_connect("localhost"); //127.0.0.1
+	$conexion = mysql_connect("localhost","root",""); //127.0.0.1
 	//Se leccionar la BD
 	mysql_select_db("cursopw");
 	$validar = sprintf("select usuario,clave from usuarios where usuario=%s and clave=%s limit 1", $usuario, $clave);
