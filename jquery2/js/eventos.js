@@ -24,7 +24,7 @@ var iniciaApp = function()
 		                 "&id="+Math.random(); //para que ajax no utilice el cache
 		$.ajax({
 			beforeSend:function(){
-				console.log("Validar al ususario");
+				console.log("Validar al usuario");
 			},
 			cache: false,
 			type: "POST",
@@ -49,6 +49,48 @@ var iniciaApp = function()
 		});
 		console.log("Se disparó el submit");
 	}
+
+	var Altas = function()
+	{
+		//mostramos el formulario
+		$("#altaUsuarios").show("slow");
+	}
+
+	var AltaUsuario = function()
+	{
+		event.preventDefault();
+		alert($("#frmAltaUsuarios").serialize());
+		var datos = $("#frmAltaUsuarios").serialize();
+		var parametros = "accion=guardaUsuario&"+datos+"&id="+Math.random();
+
+		$.ajax({
+			beforeSend:function(){
+				console.log("Guardar al usuario");
+			},
+			cache: false,
+			type: "POST",
+			dataType: "json",
+			url:"php/funciones.php",
+			data:parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					alert("Usuario registrado correctamente");
+				}
+				else
+				{
+					alert("No se pudo guardar la información");
+				}
+			},
+			error: function(xhr,ajax,thrownError){
+
+			}
+
+		})
+	}
+
 	$("#frmValidaEntrada").on("submit",ValidarEntrada);
+	$("#btnAltas").on("click",Altas);
+	$("#frmAltaUsuarios").on("submit",AltaUsuario);
 }
 $(document).on("ready",iniciaApp);
