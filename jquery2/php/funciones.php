@@ -1,12 +1,9 @@
 <?php
 //Funciones
-
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
   $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
-
   $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
-
   switch ($theType) {
     case "text":
       $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
@@ -27,45 +24,41 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
   }
   return $theValue;
 }
-
-function ValidarEntrada()
+function validaEntrada()
 {
 	$usuario = GetSQLValueString($_POST["usuario"],"text");
-	$clave = GetSQLValueString (md5($_POST["clave"]),"text");
+	$clave   = GetSQLValueString(md5($_POST["clave"]),"text");
 	$respuesta = false;
-
-	//conecto al servidor de BD
-	//servidor, usuario y clave
-	$conexion = mysql_connect("localhost","root",""); //127.0.0.1
-	//Se leccionar la BD
+	//Conecto al servidor de BD
+	//Servidor, usuario, clave
+	$conexion = mysql_connect("localhost","root","");
+	//Seleccionar la BD
 	mysql_select_db("cursopw");
-	$validar = sprintf("select usuario,clave from usuarios where usuario=%s and clave=%s limit 1", $usuario, $clave);
+	$validar = sprintf("select usuario,clave from usuarios where usuario=%s and clave=%s limit 1",$usuario,$clave);
 	$resultado = mysql_query($validar);
-	//preguntamos si se trajo un registro
+	//Preguntamos si se trajo un registro
 	if(mysql_num_rows($resultado) > 0)
 		$respuesta = true;
 	$salidaJSON = array('respuesta' => $respuesta );
-	// devolvemos el resultado a JS
+	//Devolvemos el resultado al JS
 	print json_encode($salidaJSON);
 }
-
 function guardaUsuario()
 {
-	$usuario = GetSQLValueString ($_POST["txtNombreUsuario"],"text");
-	$clave   = GetSQLValueString (md5($_POST["txtClaveUsuario"]),"text");
-	$tipo    = GetSQLValueString ($_POST["txtTipoUsuario"],"text");
-	$depto   = GetSQLValueString ($_POST["txtDepartamento"],"long");
+	$usuario = GetSQLValueString($_POST["txtNombreUsuario"],"text");
+	$clave   = GetSQLValueString(md5($_POST["txtClaveUsuario"]),"text");
+	$tipo    = GetSQLValueString($_POST["txtTipoUsuario"],"text");   
+	$depto   = GetSQLValueString($_POST["txtDepartamento"],"long");
 	$respuesta = false;
-
-	//conecto al servidor de BD
-	//servidor, usuario y clave
-	$conexion = mysql_connect("localhost","root",""); //127.0.0.1
-	//Se leccionar la BD
+	//Conecto al servidor de BD
+	//Servidor, usuario, clave
+	$conexion = mysql_connect("localhost","root","");
+	//Seleccionar la BD
 	mysql_select_db("cursopw");
-	$guarda = sprintf("insert into usuarios values(%s,%s,%s,%d)", $usuario, $clave, $tipo, $depto);
-	//ejecutamos la consulta
+	$guarda = sprintf("insert into usuarios values(%s,%s,%s,%d)",$usuario,$clave,$tipo,$depto);
+	// Ejecutamos la consulta
 	mysql_query($guarda);
-	//cuantos recursos fueron afectados
+	//Cuantos registros fueron afectados
 	if(mysql_affected_rows() > 0)
 	{
 		$respuesta = true;
@@ -73,15 +66,33 @@ function guardaUsuario()
 	$salidaJSON = array('respuesta' => $respuesta);
 	print json_encode($salidaJSON);
 }
-
+function bajaUsuario()
+{
+	$respuesta = false;
+	$usuario = GetSQLValueString($_POST["txtNombreUsuario"],"text");
+	mysql_connect("localhost","root","");
+	mysql_select_db("cursopw");
+	$baja = sprintf("delete from usuarios where usuario=%s limit 1", $usuario);
+	//$baja = sprintf("update form usuarios set tipousuario='baja' where usuario=%s", $usuario);
+	mysql_query($baja);
+	if(mysql_affected_rows() > 0)
+	{
+		$respuesta = true;
+	}
+	$salidaJSON = array('respuesta' => $respuesta);
+	print json_encode($salidaJSON);
+}
 $accion = $_POST["accion"];
 //Menú principal
 switch ($accion) {
-	case 'validarEntrada':
-		validarEntrada();
+	case 'validaEntrada':
+		validaEntrada();
 		break;
 	case 'guardaUsuario':
 		guardaUsuario();
+		break;
+	case 'bajaUsuario':
+		bajaUsuario();
 		break;
 	default:
 		# code...

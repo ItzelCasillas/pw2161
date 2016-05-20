@@ -1,27 +1,29 @@
 var iniciaApp = function()
 {
-	var ValidarEntrada = function()
-	{
-		event.preventDefault(); //invalida los eventos que no corresponden a esta función
+	var validarEntrada = function()
+	{			
+		//Invalida los eventos que 
+		//no corresponden a esta función.	
+		event.preventDefault();
 		var usuario = $("#txtUsuario").val();
-		var clave = $("#txtClave").val();
-		//validaciones
-		//1. que no sean vacíos
-		if(usuario =="")
+		var clave   = $("#txtClave").val();
+		//******** Validaciones **********
+		//1.- Que no sean vacíos
+		if(usuario == "")
 		{
 			alert("El usuario no debe ser vacío");
 			$("#txtUsuario").focus();
 		}
-		if(clave =="")
+		if(clave == "")
 		{
-			alert("La clave no debe ser vacío");
+			alert("La clave no debe ser vacía");
 			$("#txtClave").focus();
 		}
-		//2. verificar usuario y contraseña
-		var parametros = "accion=validarEntrada"+
-		                 "&usuario="+usuario+
-		                 "&clave="+clave+
-		                 "&id="+Math.random(); //para que ajax no utilice el cache
+		//2.- Verificar usuario y contraseña
+		var parametros="accion=validaEntrada"+
+					   "&usuario="+usuario+
+					   "&clave="+clave+
+					   "&id="+Math.random(); 
 		$.ajax({
 			beforeSend:function(){
 				console.log("Validar al usuario");
@@ -32,7 +34,7 @@ var iniciaApp = function()
 			url:"php/funciones.php",
 			data:parametros,
 			success: function(response){
-				if(response.respuesta == true)
+				if(response.respuesta == true) //¬¬
 				{
 					$("#datosUsuario").hide();
 					$("nav").show("slow");
@@ -41,7 +43,6 @@ var iniciaApp = function()
 				{
 					alert("Usuario/contraseña incorrecto(s)");
 				}
-
 			},
 			error: function(xhr,ajaxOptions,thrownError){
 				console.log("Algo salió mal");
@@ -52,17 +53,56 @@ var iniciaApp = function()
 
 	var Altas = function()
 	{
-		//mostramos el formulario
+		//Mostramos el formulario
 		$("#altaUsuarios").show("slow");
+		$("#altaUsuarios h2").html("Alta Usuarios");
+		// enciendo la función de AltaUsuario
+		$("#frmAltaUsuarios").on("submit",AltaUsuario);
+		// desactivo la función de BajaUsuario para el mismo botón
+		$("#frmAltaUsuarios").off("submit",BajaUsuario);
+
+	}
+
+	var BajaUsuario = function()
+	{
+		event.preventDefault();
+		//var datos = $("#frmAltaUsuarios").serialize();
+		var datos = "txtNombreUsuario="+$("#txtNombreUsuario").val();
+		var parametros = "accion=bajaUsuario&"+datos+
+		                 "&id="+Math.random();
+		$.ajax({
+			beforeSend:function(){
+				console.log("Baja al usuario");
+			},
+			cache: false,
+			type: "POST",
+			dataType: "json",
+			url:"php/funciones.php",
+			data:parametros,
+			success: function(response){
+				if(response.respuesta == true )//¬¬
+				{
+					alert("Usuario dado de baja correctamente");
+				}
+				else
+				{
+					alert("No se pudo dar de baja la información");
+				}
+			},
+			error: function(xhr,ajax,thrownError){
+
+			}
+		});
 	}
 
 	var AltaUsuario = function()
 	{
 		event.preventDefault();
-		alert($("#frmAltaUsuarios").serialize());
+		
+		//alert($("#frmAltaUsuarios").serialize());
 		var datos = $("#frmAltaUsuarios").serialize();
-		var parametros = "accion=guardaUsuario&"+datos+"&id="+Math.random();
-
+		var parametros = "accion=guardaUsuario&"+datos+
+		                 "&id="+Math.random();
 		$.ajax({
 			beforeSend:function(){
 				console.log("Guardar al usuario");
@@ -73,7 +113,7 @@ var iniciaApp = function()
 			url:"php/funciones.php",
 			data:parametros,
 			success: function(response){
-				if(response.respuesta == true)
+				if(response.respuesta == true )//¬¬
 				{
 					alert("Usuario registrado correctamente");
 				}
@@ -85,12 +125,22 @@ var iniciaApp = function()
 			error: function(xhr,ajax,thrownError){
 
 			}
-
-		})
+		});
 	}
 
-	$("#frmValidaEntrada").on("submit",ValidarEntrada);
+	var Bajas = function()
+	{
+		$("#altaUsuarios").show("slow");
+		$("#altaUsuarios h2").html("Baja Usuarios");
+		// desactivo la función de AltaUsuario
+		$("#frmAltaUsuarios").off("submit",AltaUsuario);
+		//Enciendo la función de BajaUsuario para el mismo botón
+		$("#frmAltaUsuarios").on("submit",BajaUsuario);
+	}
+
+	$("#frmValidaEntrada").on("submit",validarEntrada);
 	$("#btnAltas").on("click",Altas);
 	$("#frmAltaUsuarios").on("submit",AltaUsuario);
+	$("#btnBajas").on("click",Bajas);
 }
 $(document).on("ready",iniciaApp);
