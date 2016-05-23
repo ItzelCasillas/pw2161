@@ -24,7 +24,7 @@ h1,h2
 	text-align: center;
 }
 
-#altaUsuarios
+#altaUsuarios, #consultasUsuarios
 {
 	display: none;
 	margin: 0 auto;

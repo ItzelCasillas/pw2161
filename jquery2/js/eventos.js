@@ -138,9 +138,38 @@ var iniciaApp = function()
 		$("#frmAltaUsuarios").on("submit",BajaUsuario);
 	}
 
+	var Consultas = function()
+	{
+		$("#consultasUsuarios").show("slow");
+		var parametros = "accion=consultas"+
+		                 "&id="+Math.random();
+		$.ajax({
+			beforeSend:function(){
+				console.log("Guardar al usuario");
+			},
+			cache: false,
+			type: "POST",
+			dataType: "json",
+			url:"php/funciones.php",
+			data:parametros,
+			success: function(response){
+				if(response.respuesta == true)
+				{
+					$("#tablaConsultas").html(response.tabla);
+					// $("#tablaConsultas").append(response.tabla);
+				}
+			},
+				error:function(xhr,ajax,thrownError){
+					console.log("Ha ocurrido un error")
+				
+			}
+		});
+	}
+
 	$("#frmValidaEntrada").on("submit",validarEntrada);
 	$("#btnAltas").on("click",Altas);
 	$("#frmAltaUsuarios").on("submit",AltaUsuario);
 	$("#btnBajas").on("click",Bajas);
+	$("#btnConsultas").on("click",Consultas);
 }
 $(document).on("ready",iniciaApp);
