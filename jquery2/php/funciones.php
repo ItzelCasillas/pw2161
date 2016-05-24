@@ -98,6 +98,7 @@ function consultas()
 	    $tabla.= "<th>Usuario</th>";
 	    $tabla.= "<th>Tipo Usuario</th>";
 	    $tabla.= "<th>Departamento</th>";
+	    $tabla.= "<th>Acciones</th>";
 	    $tabla.= "</tr>";
 		while ($registro = mysql_fetch_array($resultado))
 		{
@@ -105,6 +106,7 @@ function consultas()
 			$tabla.="<td>".$registro["usuario"]."</td>";
 			$tabla.="<td>".$registro["tipousuario"]."</td>";
 			$tabla.="<td>".$registro["departamento"]."</td>";
+			$tabla.="<td><button id='".$registro["usuario"]."' class='pw btn btn-danger'>Baja</button></td>";
 			$tabla.="</tr>";
 		}
 	}

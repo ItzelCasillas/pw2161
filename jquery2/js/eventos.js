@@ -166,10 +166,20 @@ var iniciaApp = function()
 		});
 	}
 
+	var BajaDinamica = function()
+	{
+		var usuario = $(this).attr("id");
+		alert(usuario);
+	}
+
 	$("#frmValidaEntrada").on("submit",validarEntrada);
 	$("#btnAltas").on("click",Altas);
 	$("#frmAltaUsuarios").on("submit",AltaUsuario);
 	$("#btnBajas").on("click",Bajas);
 	$("#btnConsultas").on("click",Consultas);
+	//eventos dinámicos
+	// $("#tablaConsultas > button").on("click",BajaDinamica);
+	//otra forma
+	$("#tablaConsultas").on("click","button",BajaDinamica);
 }
 $(document).on("ready",iniciaApp);
