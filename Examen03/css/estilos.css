@@ -1,0 +1,18 @@
+body 
+{
+	font-size: 16px;
+	margin: 0 auto;
+	max-width: 1024px;
+}
+
+h1,h2
+{
+	text-align: center;
+}
+
+#Baja
+{
+	display: none;
+	margin: 0 auto;
+	width: 320px;
+}
